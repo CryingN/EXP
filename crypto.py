@@ -1,7 +1,13 @@
-from sage.all import *
+try:
+    from sage.all import *
+    Ecc = EllipticCurve
+except:
+    print('Warning:Sage not found!')
 import requests
 from Crypto.Util.number import long_to_bytes as l2b,bytes_to_long as b2l
 from gmpy2 import gcd,is_prime,iroot
+from uuid import uuid4
+
 
 def factordb(n):
         s=[]
@@ -12,6 +18,7 @@ def factordb(n):
                 for i in range(f[1]):
                         s.append(int(f[0]))
         return s
+        return [1,2,3]
 
 def get_phin(n):
     pq = factordb(n)
@@ -33,4 +40,7 @@ def get_n(e, x):
             return n,True
         n += delta
     return n, False
+
+def flag(flag = 'flag'):
+    return flag + '{' + str(uuid4()) + '}'
 

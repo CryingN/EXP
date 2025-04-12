@@ -1,6 +1,6 @@
 import hashlib
 import requests
-import paramiko
+#import paramiko
 from time import sleep
 from concurrent.futures import ThreadPoolExecutor
 import py_compile
@@ -58,7 +58,7 @@ def sha(crypto:str):
 def pyc(file_name):
     py_compile.compile(file_name)
 
-
+'''
 # 配置ssh相关
 class SSH:
     def __init__(self, url, user, passwd):
@@ -115,7 +115,7 @@ class SSH:
         except BaseException as e:
             print("[-] Could not exec command! {}".format(e))
         return 0
-
+'''
 
 
 

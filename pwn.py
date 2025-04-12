@@ -7,25 +7,12 @@ choose_log = "\033[34m[Choose]\033[0m "
 choose_true = {'yes','y','Y'}
 
 the_io:str
-context(os='linux',arch='amd64', log_level="debug")
 
-
-def io(bin_file, url_port="", py_port="12345"):
+def io(bin_file, url_port=""):
     global the_io, the_elf
     if url_port == "":
         if ".py" in bin_file:
-            """
-            这里需要配置gnu-netcat或VY-netcat, 提供VY-netcat链接, 欢迎star!
-            gitee   :   https://gitee.com/cryingn/vy-netcat
-            github  :   https://github.com/cryingn/vy-netcat
-            """
-            from subprocess import Popen
-            try:
-                child = Popen(['nc', '-lp', py_port, '-e', bin_file])
-            except:
-                print('python脚本呢执行错误, 请自行检查.')
-                exit()
-            the_io = remote('127.0.0.1', py_port)
+            the_io = process(["python3", bin_file])
         else:
             the_io = process(bin_file)
             the_elf = ELF(bin_file)
@@ -48,6 +35,7 @@ sa      = lambda load, data         : the_io.sendafter(load, data+b"\n")
 shell   = lambda                    : the_io.interactive()
 
 plt     = lambda function           : the_elf.plt[function]
+close   = lambda                    : the_io.close()
 
 log     = lambda level, os="linux", arch="amd64": context(os='linux',arch='amd64', log_level="critical") if level else context(os='linux',arch='amd64', log_level="debug")
 
