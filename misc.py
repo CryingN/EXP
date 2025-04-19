@@ -1,4 +1,3 @@
-
 # 看了半天发现是9键加密
 def nine_key(in_data, UP = False):
     in_data = str(in_data)
